@@ -88,8 +88,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 //if we swipe the item to the left
-                Contact c = contacts.get(viewHolder.getAdapterPosition());
+                int position = viewHolder.getAdapterPosition();
+                Contact c = contacts.get(position);
                 viewModel.deleteContact(c);
+                contacts.remove(position);
+                myAdapter.notifyDataSetChanged();
                 Toast.makeText(MainActivity.this, c.getName()+" deleted", Toast.LENGTH_SHORT).show();
             }
         }).attachToRecyclerView(recyclerView);
